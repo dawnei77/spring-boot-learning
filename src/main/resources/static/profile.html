@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Profile</title></head>
+    <body>
+        <h1>User Profile</h1>
+        <p id="output">Loading...</p>
+
+        <script>
+            fetch('/api/user')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = "Name: " + data.name + ", Age: " + data.age;
+                });
+        </script>
+    </body>
+</html>

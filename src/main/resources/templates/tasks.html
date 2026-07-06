@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Tasks</title>
+</head>
+<body>
+    <h1>My Tasks</h1>
+
+    <form th:action="@{/tasks/add}" method="post">
+        <input type="text" name="title" placeholder="New task..." required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <h2>Pending :</h2>
+    <ul>
+        <li th:each="task : ${tasks}" th:if="${!task.done}">
+            <form th:action="@{/tasks/complete}" method="post">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <input type="checkbox" th:checked="${task.done}" onchange="this.form.submit()" />
+                <span th:text="${task.title}"></span>
+            </form>
+        </li>
+    </ul>
+
+    <h2>Completed :</h2>
+    <ul>
+        <li th:each="task : ${tasks}" th:if="${task.done}">
+            <form th:action="@{/tasks/complete}" method="post">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <input type="checkbox" th:checked="${task.done}" onchange="this.form.submit()" />
+                <span th:text="${task.title}"></span>
+            </form>
+        </li>
+    </ul>
+</body>
+</html>
