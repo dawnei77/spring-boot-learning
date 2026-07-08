@@ -5,6 +5,13 @@
     </head>
     <body>
         <h2>Login</h2>
+
+        <p th:if="${param.registered != null}" style="color:green;">
+            Registration successful! Please log in.
+        </p>
+        <p th:if="${param.deleted != null}" style="color:green">
+            Your account has been deleted successfully.
+        </p>
         <form th:action="@{/login}" method="post">
             <input type="text" name="username" placeholder="username" required/>
             <br><input type="password" name="password" placeholder="password" required/>

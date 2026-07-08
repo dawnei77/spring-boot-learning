@@ -25,6 +25,6 @@ public class RegisterController {
     public String register(@ModelAttribute User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user); 
-        return "redirect:/";
+        return "redirect:/login?registered";
     }
 }

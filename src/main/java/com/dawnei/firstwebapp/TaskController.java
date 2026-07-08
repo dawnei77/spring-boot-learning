@@ -57,4 +57,11 @@ public class TaskController {
         taskRepository.deleteById(id);
         return "redirect:/tasks";
     }
+
+    @PostMapping("/account/delete")
+    public String deleteAccount() {
+        User loggedInUser = getLoggedInUser();
+        userRepository.delete(loggedInUser);
+        return "redirect:/login?deleted";
+    }
 }

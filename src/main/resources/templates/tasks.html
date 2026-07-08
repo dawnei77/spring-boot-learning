@@ -41,6 +41,9 @@
         </li>
     </ul>
     <br><br>
+    <form th:action="@{/account/delete}" method="post" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+        <button type="submit">Delete Account</button>
+    </form>
     <form th:action="@{/logout}" method="post">
         <button type="submit">Logout</button>
     </form>
