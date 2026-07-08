@@ -12,7 +12,7 @@ public class ApiController {
     }
 
     @GetMapping("/api/user")
-    public User getUser() {
-        return new User("Dawn", 21);
+    public Person getPerson() {
+        return new Person("Dawn", 21);
     }
 }

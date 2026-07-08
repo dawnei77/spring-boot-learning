@@ -1,19 +1,47 @@
 package com.dawnei.firstwebapp;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "app_user")
 public class User {
-    private String name;
-    private int age;
 
-    public User(String name, int age) {
-        this.name = name;
-        this.age = age;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String username;
+    private String password;
+
+    public User() {
     }
 
-    public String getName() {
-        return name;
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
-    public int getAge() {
-        return age;
+    public Long getId() {
+        return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

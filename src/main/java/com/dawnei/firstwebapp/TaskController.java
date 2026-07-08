@@ -1,6 +1,8 @@
 package com.dawnei.firstwebapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,16 +17,28 @@ public class TaskController {
     @Autowired
     private TaskRepository taskRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    private User getLoggedInUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        return userRepository.findByUsername(username).orElseThrow();
+    }
+
     @GetMapping("/tasks")
     public String tasks(Model model) {
-        List<Task> taskList = taskRepository.findAll();
+        User loggedInUser = getLoggedInUser();
+        List<Task> taskList = taskRepository.findByUser(loggedInUser);
         model.addAttribute("tasks", taskList);
         return "tasks";
     }
 
     @PostMapping("/tasks/add")
     public String addTask(@RequestParam String title) {
+        User loggedInUser = getLoggedInUser();
         Task newTask = new Task(title, false);
+        newTask.setUser(loggedInUser);
         taskRepository.save(newTask);
         return "redirect:/tasks";
     }
@@ -35,6 +49,12 @@ public class TaskController {
             task.setDone(!task.isDone());
             taskRepository.save(task);
         });
+        return "redirect:/tasks";
+    }
+
+    @PostMapping("/tasks/delete")
+    public String deleteTask(@RequestParam Long id) {
+        taskRepository.deleteById(id);
         return "redirect:/tasks";
     }
 }

@@ -19,6 +19,10 @@
                 <input type="checkbox" th:checked="${task.done}" onchange="this.form.submit()" />
                 <span th:text="${task.title}"></span>
             </form>
+            <form th:action="@{/tasks/delete}" method="post">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <button type="submit">Delete</button>
+            </form>
         </li>
     </ul>
 
@@ -30,7 +34,15 @@
                 <input type="checkbox" th:checked="${task.done}" onchange="this.form.submit()" />
                 <span th:text="${task.title}"></span>
             </form>
+            <form th:action="@{/tasks/delete}" method="post">
+                <input type="hidden" name="id" th:value="${task.id}" />
+                <button type="submit">Delete</button>
+            </form>
         </li>
     </ul>
+    <br><br>
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">Logout</button>
+    </form>
 </body>
 </html>

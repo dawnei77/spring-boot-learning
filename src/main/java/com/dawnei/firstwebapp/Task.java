@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Task {
@@ -14,6 +15,9 @@ public class Task {
 
     private String title;
     private boolean done;
+
+    @ManyToOne
+    private User user;
 
     // JPA requires an empty constructor
     public Task() {
@@ -38,5 +42,13 @@ public class Task {
 
     public void setDone(boolean done) {
         this.done = done;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
