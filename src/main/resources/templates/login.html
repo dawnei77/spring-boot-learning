@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Login</title>
-    </head>
-    <body>
-        <h2>Login</h2>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400&family=Inter:wght@400;500;600&family=Libre+Franklin:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+  <div class="auth-split">
+    <div class="auth-hero">
+      <div class="hero-emoji">🌿</div>
+      <h1 class="hero-heading">Login for your personal list!</h1>
+      <div class="hero-logo">neicheck</div>
+    </div>
 
-        <p th:if="${param.registered != null}" style="color:green;">
-            Registration successful! Please log in.
-        </p>
-        <p th:if="${param.deleted != null}" style="color:green">
-            Your account has been deleted successfully.
-        </p>
-        <form th:action="@{/login}" method="post">
-            <input type="text" name="username" placeholder="username" required/>
-            <br><input type="password" name="password" placeholder="password" required/>
-            <br><button type="submit">Login</button>
-        </form>
+    <div class="auth-card-col">
+      <form th:action="@{/login}" method="post">
+        <div class="form-card">
+          <div class="form-row">
+            <input type="text" name="username" placeholder="Username" required autocomplete="username">
+          </div>
+          <div class="form-row">
+            <input type="password" name="password" placeholder="Password" required autocomplete="current-password">
+          </div>
+          <div class="form-submit-wrap">
+            <button type="submit" class="form-submit">Login</button>
+          </div>
+        </div>
+      </form>
 
-        <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
-    </body>
+      <p class="form-message info" th:if="${param.registered != null}" style="text-align:center;">Registration successful! Please log in.</p>
+      <p class="form-message info" th:if="${param.deleted != null}" style="text-align:center;">Your account has been deleted successfully.</p>
+      <p class="form-message" th:if="${param.error != null}" style="text-align:center;">Invalid username or password.</p>
+
+      <p class="auth-below-link align-right">Create new account? <a th:href="@{/register}">Register</a></p>
+    </div>
+  </div>
+</body>
 </html>

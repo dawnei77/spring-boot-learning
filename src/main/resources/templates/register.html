@@ -1,16 +1,55 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <title>Register user</title>
-    </head>
-    <body>
-        <h2>Register New</h2>
-        <form th:action="@{/register}" method="post">
-            <input type="text" name="username" placeholder="username" required />
-            <br><input type="password" name="password" placeholder="password" required />
-            <br><button type="submit">Register</button>
-        </form>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400&family=Inter:wght@400;500;600&family=Libre+Franklin:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="auth-page">
+  <div class="auth-card-col" style="text-align:center;">
+    <div class="hero-emoji-lg">🪴</div>
 
-        <p>Already have an account? <a th:href="@{/login}">Sign in here</a></p>
-    </body>
+    <form th:action="@{/register}" method="post" id="registerForm">
+      <div class="form-card" style="text-align:left;">
+        <div class="form-row">
+          <input type="text" name="username" placeholder="Username" required autocomplete="username">
+        </div>
+        <div class="form-row">
+          <input type="password" name="password" id="password" placeholder="Password" required autocomplete="new-password">
+        </div>
+        <div class="form-row">
+          <!-- no `name` — never sent to the server, your RegisterController
+               only binds username/password to the User entity. Purely a
+               client-side check via the script below. -->
+          <input type="password" id="confirmPassword" placeholder="Confirm password" required autocomplete="new-password">
+        </div>
+        <div class="form-submit-wrap">
+          <button type="submit" class="form-submit register-submit">Register</button>
+        </div>
+      </div>
+    </form>
+
+    <p class="form-message" id="passwordMismatch" style="display:none; text-align:center;">Passwords don't match.</p>
+
+    <p class="auth-below-link align-center">Already have an account? <a th:href="@{/login}">Login</a></p>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      const pw = document.getElementById('password').value;
+      const cpw = document.getElementById('confirmPassword').value;
+      const msg = document.getElementById('passwordMismatch');
+      if (pw !== cpw) {
+        e.preventDefault();
+        msg.style.display = 'block';
+      } else {
+        msg.style.display = 'none';
+      }
+    });
+  </script>
+</body>
 </html>
